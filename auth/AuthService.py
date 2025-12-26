@@ -42,7 +42,6 @@ class AuthService:
 
         try:
             # Call introspect endpoint
-            print(self.introspect_url)
             async with httpx.AsyncClient(timeout=10.0) as client:
                 response = await client.get(
                     self.introspect_url,
@@ -51,7 +50,6 @@ class AuthService:
                              }
 
                 )
-                print(response.json())
                 if response.status_code != 200:
                     raise HTTPException(
                         status_code=401,
