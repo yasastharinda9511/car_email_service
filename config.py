@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     email: str
     email_app_password: str
 
+    introspect_url: str
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

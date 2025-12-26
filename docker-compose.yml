@@ -18,6 +18,9 @@ services:
       # Service configuration
       - HOST=${HOST:-0.0.0.0}
       - PORT=${PORT:-8086}
+
+      # Authentication
+      - INTROSPECT_URL=${INTROSPECT_URL}
     restart: unless-stopped
     networks:
       - email-network
