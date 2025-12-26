@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  email-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-service
+    ports:
+      - "8086:8086"
+    environment:
+      # Mail server configuration
+      - MAIL_SERVER_HOST=${MAIL_SERVER_HOST:-smtp.gmail.com}
+      - MAIL_SERVER_PORT=${MAIL_SERVER_PORT:-465}
+      - EMAIL=${EMAIL:-tarraogonmailservice@gmail.com}
+      - EMAIL_APP_PASSWORD=${EMAIL_APP_PASSWORD}
+
+      # Service configuration
+      - HOST=${HOST:-0.0.0.0}
+      - PORT=${PORT:-8086}
+    restart: unless-stopped
+    networks:
+      - email-network
+
+networks:
+  email-network:
+    driver: bridge
