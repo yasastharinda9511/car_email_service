@@ -42,48 +42,12 @@ async def verify_token(token_data: dict = Depends(auth_service.verify_token)):
     return token_data
 
 
-@app.get("/email-service")
+@app.get("/notification-service")
 async def root():
     return {"message": "Email Service API is running"}
 
 
-@app.post("/email-service/send-purchasing-status")
-async def send_purchasing_status(
-    purchase: PurchasingStatusEmail,
-    token_data: dict = Depends(verify_token)
-):
-    """
-    Send purchasing status update email (LC opened, LC received, payment processed, etc.)
-    Requires valid Bearer token in Authorization header.
-    """
-    try:
-        response = mail_service.send_purchase_status_update(purchase)
-        return response
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
-
-
-@app.post("/email-service/send-shipping-status")
-async def send_shipping_status(
-    shipping: ShippingStatusEmail,
-    token_data: dict = Depends(verify_token)
-):
-    """
-    Send shipping status update email (In Transit, Arrived at Port, Customs Clearance, etc.)
-    Requires valid Bearer token in Authorization header.
-    """
-    try:
-        response = mail_service.send_shipping_status_update(shipping)
-        return response
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
-
-
-@app.post("/email-service/notifications")
+@app.post("/notification-service/notifications")
 async def accept_notification(
     notification: NotificationRequest,
     token_data: dict = Depends(verify_token)
