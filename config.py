@@ -14,6 +14,13 @@ class Settings(BaseSettings):
     port: int = 8000
 
     # Database
+    db_host: str = "localhost"
+    db_port: int = 5432
+    db_name: str
+    db_user: str
+    db_password: str
+
+    # Mail Server
     mail_server_host: str
     mail_server_port: int
 

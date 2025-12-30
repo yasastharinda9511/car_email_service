@@ -183,3 +183,7 @@ logs/
 # Application specific
 # Uncomment if you don't want to track these
 # .env.example
+
+# Notification storage
+data/notifications.jsonl
+data/*.jsonl

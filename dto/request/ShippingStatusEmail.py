@@ -4,14 +4,15 @@ from typing import Optional
 
 class ShippingStatusEmail(BaseModel):
     # Customer details
-    to_email: EmailStr
-    customer_name: str
+    email: Optional[EmailStr] = None
+    customer_name: Optional[str] = None
+    vehicle_code: str
 
     # Car details
-    car_make: str
-    car_model: str
-    car_year: Optional[str] = None
-    chassis_number: Optional[str] = None
+    make: str
+    model: str
+    year: Optional[int] = None
+    chassis_id: Optional[str] = None
 
     # Shipping status details
     old_status: Optional[str] = None
