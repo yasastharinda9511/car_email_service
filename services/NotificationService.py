@@ -54,7 +54,7 @@ class NotificationService:
 
             # Insert into database
             insert_query = """
-            INSERT INTO notifications (
+            INSERT INTO notifications.notifications (
                 notification_id, notification_type, source, payload,
                 priority, timestamp, reference_id, metadata, stored_at
             ) VALUES (%s, %s, %s, %s::jsonb, %s, %s, %s, %s::jsonb, %s)
@@ -93,7 +93,7 @@ class NotificationService:
             query = """
             SELECT notification_id, notification_type, source, payload,
                    priority, timestamp, reference_id, metadata, stored_at
-            FROM notifications
+            FROM notifications.notifications
             WHERE notification_id = %s
             """
 
@@ -158,7 +158,7 @@ class NotificationService:
             query = f"""
             SELECT notification_id, notification_type, source, payload,
                    priority, timestamp, reference_id, metadata, stored_at
-            FROM notifications
+            FROM notifications.notifications
             WHERE {where_clause}
             ORDER BY stored_at DESC
             LIMIT %s OFFSET %s
@@ -214,7 +214,7 @@ class NotificationService:
 
             query = f"""
             SELECT COUNT(*) as count
-            FROM notifications
+            FROM notifications.notifications
             WHERE {where_clause}
             """
 
@@ -239,7 +239,7 @@ class NotificationService:
             True if deleted, False if not found
         """
         try:
-            query = "DELETE FROM notifications WHERE notification_id = %s"
+            query = "DELETE FROM notifications.notifications WHERE notification_id = %s"
             rows_affected = self.data_base.execute_update(query, (notification_id,))
             return rows_affected > 0
 
@@ -261,7 +261,7 @@ class NotificationService:
         """
         try:
             query = """
-            DELETE FROM notifications
+            DELETE FROM notifications.notifications
             WHERE stored_at < NOW() - INTERVAL '%s days'
             """
             rows_affected = self.data_base.execute_update(query, (days,))
